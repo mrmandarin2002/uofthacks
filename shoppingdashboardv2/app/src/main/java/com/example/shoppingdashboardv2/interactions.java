@@ -90,7 +90,7 @@ public class interactions {
     [4] = max orders
     [everything after] = requests
      */
-    public int push_events(String community_code, List<Task> tasks) throws IOException{
+    public int push_events(String community_code, ArrayList<Task> tasks) throws IOException{
 
         //this is fucking disgusting
         List<String> str_tasks = new ArrayList<>();
@@ -111,15 +111,18 @@ public class interactions {
         return Integer.parseInt(send("push_events", str_tasks));
     }
 
+    //it's legit not possible to make more disgusting code than this
     public List<Task> pull_events(String community_code) throws IOException{
 
         String data = send("pull_events", Arrays.asList(community_code));
         List<Task> tasks = new ArrayList<>();
 
+        for(String task : data.split("|")){
+
+            List<String> task_list = Arrays.asList(task.split(":"));
 
 
+        }
         return tasks;
-
     }
-
 }

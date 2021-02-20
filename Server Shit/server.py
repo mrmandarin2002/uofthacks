@@ -1,4 +1,4 @@
-import socket
+import socket, copy
 from datetime import datetime
 
 import client_thread 
@@ -11,14 +11,6 @@ HEADER = 16
 # function to get the current time
 def get_time():
     return str(datetime.now()).split()[1].split(".")[0]+" "
-
-class event():
-
-    def add_order(self):
-        pass
-
-    def __init__(self, event_creator, destination, start_time, end_time, max_orders):
-        self.orders = []
 
 class community():
 
@@ -34,14 +26,15 @@ class community():
     def remove_user(self, username):
         self.users.remove(username)
 
-    def add_event(self, event_creator, destination, start_time, end_time, max_orders):
-        pass
+    def update_events(self, task_list):
+        self.tasks.clear()
+        self.tasks = task_list.copy()
 
     def __init__(self, name, code):
         self.name = name
         self.code = code
         self.users = []
-        self.events = []
+        self.tasks = []
 
 class server():
 

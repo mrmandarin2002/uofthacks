@@ -117,14 +117,46 @@ class client_thread():
         #return code
         pass
 
-    def push_event (self, args):
-        #we receive events and we update dicts
-        
-        pass
 
-    def pull_event (self, args):
-        #response to an event should be added as another parameter? to the list or file events are stored in
-        pass
+    '''
+    For server use
+
+    first argument is community_code
+    each task is separated by colon (|)
+    each task works as follows (separated by : within task)
+    [0] = username
+    [1] = destination
+    [2] = start
+    [3] = finish
+    [4] = max orders
+    [everything after] = requests
+    '''
+    #pushes changes to the events
+    def push_events (self, args):
+        #we receive events and we update dicts
+        tasks_list = []
+        for task in args[1:]:
+            task_list = task.split(':')
+            #add time feature where task will delete itself after time is met
+            if (len(task_list) - 5) - int(task_list[4]) > 0:
+                tasks_list.append(task_list)
+
+        self.controller.communities[args[0]].update_events(tasks_list)
+        return 1
+
+    #returns string that will be processed client side
+    #basically returns all events of a community
+    def pull_events (self, args):
+         #response to an event should be added as another parameter? to the list or file events are stored in
+        community_events = self.controller.communities[args[0]].events
+        temp_string = ""
+        for cnt, event in enumerate(community_events):
+            temp_string += ":".join(event)
+            if cnt < len(community_events) - 1:
+                temp_string += '|'
+        return temp_string 
+
+
 
 
     
