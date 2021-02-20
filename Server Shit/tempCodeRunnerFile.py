@@ -12,9 +12,11 @@ def check_user (user, pwrd):
         real_user = entries[0].split(" ")[0]
         real_pwrd = entries[0].split(" ")[1]
 
-        # com_code = entries[1].replace(" ", "")
+        com_code = entries[1].replace(" ", "")
         # print (real_user, real_pwrd)
-        # print (com_code)
+        print (com_code + "nice")
+        if com_code == "":
+            print (com_code, "lol")
 
         if user == real_user and pwrd == real_pwrd: 
             return True
@@ -35,10 +37,10 @@ def sign_up (user, pwrd):
     return True
 
     
-# print (check_user ("vincent", "tang"))
+print (check_user ("vincent", "tang"))
 # print (check_user ("vincent", "praxisfucks"))
 
-print (sign_up ("vincent", "praxisfucks"))
-print (sign_up ("derekma", "fraxispucks"))
-print (sign_up ("v", "praxisfucks"))
+# print (sign_up ("vincent", "praxisfucks"))
+# print (sign_up ("derekma", "fraxispucks"))
+# print (sign_up ("v", "praxisfucks"))
     
