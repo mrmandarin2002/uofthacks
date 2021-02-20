@@ -22,5 +22,4 @@ public class interactions {
     public void send(String message){
 
     }
-
 }

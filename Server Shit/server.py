@@ -1,7 +1,7 @@
 import socket
 from datetime import datetime
 
-import client_thread
+import client_thread 
 
 PORT = 5055
 FORMAT = 'utf-8'
@@ -36,7 +36,7 @@ class server():
             # receive incoming packages
             conn, addr = self.server.accept()
             self.client_list.append(client_thread.client_thread(conn, addr, self))
-            print(get_time() + f" New client connected. There are currently {threading.activeCount() - 1} client(s) connected!")
+            print(get_time() + f" New client connected. There are currently {client_thread.threading.activeCount() - 1} client(s) connected!")
 
 if __name__ == "__main__":
     s = server()
