@@ -16,6 +16,7 @@ class client_thread():
         self.conn = conn
         self.addr = addr
         self.client_name = ""
+        self.controller = controller
         self.functions = {
 
             "fucker" : self.fucker,
@@ -23,7 +24,6 @@ class client_thread():
             "sign_up" : self.sign_up
 
             #add all the methods within this class
-
 
         }
         threading.Thread(target = self.handle_client, args = (conn, addr)).start()
@@ -57,7 +57,6 @@ class client_thread():
                 returned_value = self.functions[function_name](f_args)
                 returned_value = str(returned_value) + '\n'
                 conn.send(returned_value.encode())
-                print("SENT")
 
     #just a testing function
     def fucker(self, args):

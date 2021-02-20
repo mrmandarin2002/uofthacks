@@ -12,10 +12,44 @@ HEADER = 16
 def get_time():
     return str(datetime.now()).split()[1].split(".")[0]+" "
 
+class event():
+
+    def add_order(self):
+        pass
+
+    def __init__(self, event_creator, destination, start_time, end_time, max_orders):
+        self.orders = []
+
+class community():
+
+    #returns True if successfully added
+    #returns False is user already in community
+    def add_user(self, username):
+        if username not in users:
+            self.users.append(username)
+            return True
+        else:
+            return False
+
+    def remove_user(self, username):
+        self.users.remove(username)
+
+    def add_event(self, event_creator, destination, start_time, end_time, max_orders):
+        pass
+
+    def __init__(self, name, code):
+        self.name = name
+        self.code = code
+        self.users = []
+        self.events = []
+
+
+
 class server():
 
     def load_files(self):
-        users = {}
+        self.users = {}
+        self.communities = {}
 
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket
