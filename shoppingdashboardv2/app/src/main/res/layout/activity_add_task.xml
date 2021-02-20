@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".AddTaskActivity">
 
+    <TextView
+        android:id="@+id/dateTimeReturn_txtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Return Date Tiime (yyyy-MM-dd hh:mm), 24-hour clock"
+        app:layout_constraintBottom_toTopOf="@+id/returnDateTime_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/name_et"
         android:layout_width="283dp"
@@ -16,87 +27,35 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/destination_et"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.347" />
 
     <EditText
         android:id="@+id/destination_et"
         android:layout_width="281dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="Destination"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/startDate_et"
+        app:layout_constraintBottom_toTopOf="@+id/dateTimeStart_txtv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/startDate_et"
-        android:layout_width="290dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="12dp"
-        android:ems="10"
-        android:hint="Date when leaving for Shopping"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/startTime_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/startTime_et"
-        android:layout_width="286dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:hint="Time of Departure"
-        android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/returnDate_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/returnDate_et"
-        android:layout_width="288dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:hint="Date of return from Shopping"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/returnTime_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/returnTime_et"
-        android:layout_width="291dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:hint="Time of Return"
-        android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/maxOrders_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/maxOrders_et"
         android:layout_width="288dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="52dp"
         android:ems="10"
         android:hint="Maximum Number of Orders"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/createTask_bt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -118,6 +77,40 @@
         android:text="Cancel and Return to Dashboard"
         app:iconTint="#682F2F"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTimeStart_txtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Start Date Tiime (yyyy-MM-dd hh:mm), 24-hour clock"
+        app:layout_constraintBottom_toTopOf="@+id/startDateTime_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/startDateTime_et"
+        android:layout_width="284dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Date and Time of Shopping "
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/dateTimeReturn_txtv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/returnDateTime_et"
+        android:layout_width="285dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:hint="Date and Time of Return"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/maxOrders_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
