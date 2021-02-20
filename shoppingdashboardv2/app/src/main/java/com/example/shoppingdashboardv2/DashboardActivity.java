@@ -30,12 +30,15 @@ public class DashboardActivity extends AppCompatActivity {
         // populate ArrayList here
         Date date_cur = new Date();
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
-        ArrayList<String> emptyArray = new ArrayList<>();
+        ArrayList<String> nonEmptyArray = new ArrayList<>();
+        nonEmptyArray.add("LOOOK AT ME");
+        nonEmptyArray.add("THERE'S TWO OF US");
 
-        Task task0 = new Task("Bob", "Loblaws", date_cur, date_cur, 5, emptyArray);
+
+        Task task0 = new Task("Bob", "Loblaws", date_cur, date_cur, 3, nonEmptyArray);
         mTasks.add(task0);
 
-        Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, emptyArray);
+        Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, nonEmptyArray);
         mTasks.add(task1);
         createRecyclerView();
 

@@ -1,6 +1,7 @@
 package com.example.shoppingdashboardv2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +65,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on: " + mTasks.get(position).getName());
 
-                // this is where we would go to the message or more descriptive part
                 Toast.makeText(mContext, mTasks.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mContext, ViewTaskActivity.class);
+                intent.putExtra("object", mTasks.get(position));
+                intent.putExtra("startDate", mTasks.get(position).getStart().getTime());
+                intent.putExtra("endDate", mTasks.get(position).getFinish().getTime());
+
+                mContext.startActivity(intent);
             }
         });
     }
