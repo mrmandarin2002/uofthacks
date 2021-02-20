@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">shoppingdashboardv2</string>
     <string name="mainBTN_text">Print Hi</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
