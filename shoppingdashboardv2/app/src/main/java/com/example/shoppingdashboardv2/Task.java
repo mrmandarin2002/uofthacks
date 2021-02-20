@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * Task object with name, location, start and end dates, and number of orders
+ */
 public class Task {
     private String name;
     private String destination;
@@ -20,7 +23,15 @@ public class Task {
      */
     private final Date CURRENTDATE = new Date();
 
-
+    /**
+     * task object to store name, location, start time, end time, and number of orders person is willing to accomodate
+     *
+     * @param name - person's name
+     * @param destination - location
+     * @param start - when they posted the "task"
+     * @param finish - when they are going
+     * @param max_orders - how many orders they are willing to facilitate
+     */
     public Task(String name, String destination, Date start, Date finish, int max_orders) {
         this.name = name;
         this.destination = destination;
@@ -31,22 +42,37 @@ public class Task {
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
     }
 
+    /**
+     * @return String person's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return String location of task
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * @return Date of when task was posted
+     */
     public Date getStart() {
         return start;
     }
 
+    /**
+     * @return Date of when task will be completed (end time)
+     */
     public Date getFinish() {
         return finish;
     }
 
+    /**
+     * @return int number of orders they are willing to satisfy
+     */
     public int getMax_orders() {
         return max_orders;
     }
