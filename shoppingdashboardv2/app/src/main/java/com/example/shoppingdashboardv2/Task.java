@@ -22,7 +22,6 @@ public class Task implements Parcelable {
     private ArrayList<String> requests;
 
 
-
     /**
      * private final Date variable holding the current date
      */
@@ -109,6 +108,10 @@ public class Task implements Parcelable {
     public void setTimeZone(){
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
 
+    }
+
+    public void setRequests(ArrayList<String> requests) {
+        this.requests = requests;
     }
 
     @Override

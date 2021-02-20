@@ -12,18 +12,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:text="Log In"
-        app:layout_constraintBottom_toTopOf="@+id/SignInSignUp_et"
+        app:layout_constraintBottom_toTopOf="@+id/SignUp_BT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/EmailLogIn_et"
+        android:id="@+id/usernameLogIn_et"
         android:layout_width="275dp"
         android:layout_height="53dp"
         android:layout_marginBottom="80dp"
         android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
+        android:hint="Username"
+        android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/LogInPassword_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/SignInSignUp_et"
+        android:id="@+id/SignUp_BT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="196dp"

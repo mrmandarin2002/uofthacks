@@ -22,6 +22,7 @@
         android:layout_width="283dp"
         android:layout_height="46dp"
         android:layout_marginTop="108dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -64,13 +65,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="Post Task To Dashboard"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_et"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_bt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/cancel_et"
+        android:id="@+id/cancel_bt"
         android:layout_width="284dp"
         android:layout_height="59dp"
         android:layout_marginBottom="16dp"

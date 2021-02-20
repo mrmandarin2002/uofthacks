@@ -18,6 +18,8 @@ public class interactions {
     BufferedReader in;
     Socket tcp_socket;
 
+
+
     public interactions() throws IOException {
         this.tcp_socket = new Socket(server_ip, PORT);
         this.out = new PrintWriter(tcp_socket.getOutputStream(), true);

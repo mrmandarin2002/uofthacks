@@ -2,16 +2,20 @@ package com.example.shoppingdashboardv2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
     private Button createActBTN;
     private TextView retLoginTV;
-    private EditText emailET;
+    private EditText usernameET;
     private EditText passwordET;
 
 
@@ -22,7 +26,38 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         createActBTN = findViewById(R.id.createActBTN);
         retLoginTV = findViewById(R.id.retLoginTV);
-        emailET = findViewById(R.id.emailET);
+        usernameET = findViewById(R.id.usernameET);
         passwordET = findViewById(R.id.passwordET);
+
+        createActBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // gonna have to change this... can't connect everywhere
+                interactions cur_interactions = null;
+                try {
+                    cur_interactions = new interactions();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    cur_interactions.sign_up(usernameET.getText().toString(), passwordET.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        retLoginTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.shoppingdashboardv2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,8 +44,6 @@ public class ViewTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
 
-
-
         task_nameTV2 = findViewById(R.id.task_nameTV2);
         task_locationTV2 = findViewById(R.id.task_locationTV2);
         task_starttimeTV2 = findViewById(R.id.task_starttime_TV2);
@@ -62,29 +61,41 @@ public class ViewTaskActivity extends AppCompatActivity {
         submitReqBTN2 = findViewById(R.id.submitReqBTN2);
         cancelBTN2 = findViewById(R.id.cancelBTN2);
 
-        getData();
+        getIntentData();
         setData();
-
-
 
         // set all TVs to what is passed in
 
         submitReqBTN2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // save fields in a single string and update task
+                String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
+                        + groceryListET2.getText().toString() + " to be delivered to: " +
+                        addressET2.getText().toString() + ". The approximate cost is: " +
+                        costET2.getText().toString();
+
+                String messagesTxt = message_TV2.getText().toString();
+                messagesTxt += newMessage + "\n";
+
+                message_TV2.setText(messagesTxt);
+
+                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                intent.putExtra("newMessage", newMessage);
+                intent.putExtra("name", curTask.getName());
+                startActivity(intent);
             }
         });
 
         cancelBTN2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // go back to last activity
+                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void getData() {
+    private void getIntentData() {
         if (getIntent().hasExtra("startDate")) {
             Intent intent = getIntent();
             curTask = intent.getParcelableExtra("object");
@@ -108,12 +119,15 @@ public class ViewTaskActivity extends AppCompatActivity {
         if (messages.size() == 0) {
             message_TV2.setVisibility(View.GONE);
             task_statusTV2.setText("Available");
+            task_statusTV2.setTextColor(Color.GREEN);
         } else if (messages.size() == curTask.getMax_orders()) {
             for (int i = 0; i < messages.size(); i++) {
                 messagesText += messages.get(i) + "\n";
             }
             message_TV2.setText(messagesText);
             task_statusTV2.setText("Full");
+            task_statusTV2.setTextColor(Color.RED);
+            task_statusTV2.setAllCaps(true);
         } else {
             for (int i = 0; i < messages.size(); i++) {
                 messagesText += messages.get(i) + "\n";
@@ -121,8 +135,6 @@ public class ViewTaskActivity extends AppCompatActivity {
             message_TV2.setText(messagesText);
             task_statusTV2.setText("Available");
         }
-
-
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String nameText = "Name: " + curTask.getName();
