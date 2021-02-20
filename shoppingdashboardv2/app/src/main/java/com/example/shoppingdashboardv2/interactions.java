@@ -53,4 +53,24 @@ public class interactions {
         System.out.println("RETURNED SHIT: " + returned_input);
         return returned_input;
     }
+
+    //returns 1 if user is valid
+    //returns 0 otherwise
+    public int check_user(String username, String password) throws IOException {
+        return Integer.parseInt(send("check_user", Arrays.asList(username, password)));
+    }
+
+    //returns 1 if sign_up was successful
+    //returns 0 if username was already taken
+    public int sign_up(String username, String password) throws IOException{
+        return Integer.parseInt(send("sign_up", Arrays.asList(username, password)));
+    }
+
+    //returns list of communities user is in
+    public List<String> get_user_community(String username) throws IOException{
+        return Arrays.asList(send("get_user_community", Arrays.asList(username)));
+    }
+
+
+
 }
