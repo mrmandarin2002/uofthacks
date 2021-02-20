@@ -21,6 +21,7 @@ import java.util.TimeZone;
 public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = "DashboardActivity";
+    ArrayList<Task> mTasks;
 
     // want to populate this from the database
 
@@ -34,7 +35,8 @@ public class DashboardActivity extends AppCompatActivity {
         interactions cur_interaction = ServerSingleton.get().getMinteracations();
         try {
             ServerSingleton.get().setmTasks( (ArrayList<Task>) cur_interaction.
-                    pull_events(ServerSingleton.get().getmCommunityCode()));// need to change return type in interactions
+                    pull_events(ServerSingleton.get().getmCommunityCode()));
+            mTasks = ServerSingleton.get().getmTasks();// need to change return type in interactions
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -48,22 +50,22 @@ public class DashboardActivity extends AppCompatActivity {
         nonEmptyArray.add("LOOOK AT ME");
         nonEmptyArray.add("THERE'S TWO OF US");
 
-
+        // shouldn't need this section after proper server integration
         Task task0 = new Task("Bob", "Loblaws", date_cur, date_cur, 3, nonEmptyArray);
         ServerSingleton.get().addmTasks(task0);
 
         Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, nonEmptyArray);
         ServerSingleton.get().addmTasks(task1);
+        mTasks = ServerSingleton.get().getmTasks();
         // do not normally make changes here
 
         if (getIntent().hasExtra("newMessage")) {
             String newMessage = getIntent().getStringExtra("newMessage");
             String name = getIntent().getStringExtra("name");
-            for (int i = 0; i < ServerSingleton.get().getmTasks().size(); i++) {
-                if (ServerSingleton.get().getmTasks().get(i).getName().equals(name)) {
-                    ArrayList<String> updatedRequests = ServerSingleton.get().getmTasks().get(i).getRequests();
+            for (int i = 0; i < mTasks.size(); i++) {
+                if (mTasks.get(i).getName().equals(name)) {
+                    ArrayList<String> updatedRequests = mTasks.get(i).getRequests();
                     updatedRequests.add(newMessage);
-                    ArrayList<Task> mTasks = ServerSingleton.get().getmTasks();
                     mTasks.get(i).setRequests(updatedRequests);
                     ServerSingleton.get().setmTasks(mTasks);
                     try {
@@ -93,7 +95,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void createRecyclerView(){
         Log.d(TAG, "CreateRecyclerView");
         RecyclerView taskRV = findViewById(R.id.taskRV);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(ServerSingleton.get().getmTasks(), this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mTasks, this);
         taskRV.setAdapter(adapter);
         taskRV.setLayoutManager(new LinearLayoutManager(this));
     }

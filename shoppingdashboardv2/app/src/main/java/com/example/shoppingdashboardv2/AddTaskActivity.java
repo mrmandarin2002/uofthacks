@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,6 +76,12 @@ public class AddTaskActivity extends AppCompatActivity {
 
                         // need to add the task here!!!
                         ServerSingleton.get().addmTasks(addedTask);
+                        try {
+                            ServerSingleton.get().getMinteracations().push_events(ServerSingleton.get().getmCommunityCode(),
+                                    ServerSingleton.get().getmTasks());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         Intent intent = new Intent(view.getContext(), DashboardActivity.class);
                         startActivity(intent);
