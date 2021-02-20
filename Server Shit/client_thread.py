@@ -1,5 +1,6 @@
 import socket, threading, struct
 from datetime import datetime
+import random
 
 PORT = 5050
 FORMAT = 'utf-8'
@@ -118,8 +119,25 @@ class client_thread():
         #args [user, name]
         #return code
 
+        user = args[0]
+        name = args[1]
+
+        code = name [0:len (name)//2] + str (random.randint(100, 999))
+
+        self.controller.users[user][1].append (code)
+
+        #write it to the file
+        lines = self.controller.f.readlines()            
+        for i in range (len (lines)):
+            entries = lines[i].split ("|")
+
+            user_pass = entries[0][:-1].split (" ")
+            if user_pass[0] == user:
+                lines[i] = lines[i] + " " + code
+                self.controller.user_text_edit.write (lines)
         
-        pass
+        return code
+
 
 
     '''
