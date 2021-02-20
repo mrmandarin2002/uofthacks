@@ -30,8 +30,7 @@ public class Task implements Parcelable {
 
     /**
      * task object to store name, location, start time, end time, and number of orders person is willing to accomodate
-     *
-     * @param name - person's name
+     ** @param name - person's name
      * @param destination - location
      * @param start - when they posted the "task"
      * @param finish - when they are going

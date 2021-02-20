@@ -43,8 +43,6 @@ class community():
         self.users = []
         self.events = []
 
-
-
 class server():
 
     def load_files(self):
@@ -73,8 +71,6 @@ class server():
             code = entries[0].replace (" ", "")
             name = entries[1].replace (" ", "")
             self.communities [code] = community(name, code)
-
-
 
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket

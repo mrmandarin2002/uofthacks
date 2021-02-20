@@ -1,7 +1,10 @@
 package com.example.shoppingdashboardv2;
 
+import com.example.shoppingdashboardv2.Task;
+
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +74,50 @@ public class interactions {
         return Arrays.asList(send("get_user_community", Arrays.asList(username)));
     }
 
+    //return 1 if push was successful
+    /*
+    For server use
 
+    first argument is community_code
+    each task is separated by colon (|)
+    each task works as follows (separated by : within task)
+    [0] = username
+    [1] = destination
+    [2] = start
+    [3] = finish
+    [4] = max orders
+    [everything after] = requests
+     */
+    public int push_events(String community_code, List<Task> tasks) throws IOException{
+
+        //this is fucking disgusting
+        List<String> str_tasks = new ArrayList<>();
+        str_tasks.add(community_code);
+        for(Task task : tasks){
+            String temp_string = "";
+            temp_string += task.getName() + ':';
+            temp_string += task.getDestination() + ':';
+            temp_string += task.getStart().toString() + ':';
+            temp_string += task.getFinish().toString() + ':';
+            temp_string += String.valueOf(task.getMax_orders());
+            for(String request : task.getRequests()){
+                temp_string += ':' + request;
+            }
+            str_tasks.add(temp_string);
+        }
+
+        return Integer.parseInt(send("push_events", str_tasks));
+    }
+
+    public List<Task> pull_events(String community_code) throws IOException{
+
+        String data = send("pull_events", Arrays.asList(community_code));
+        List<Task> tasks = new ArrayList<>();
+
+
+
+        return tasks;
+
+    }
 
 }
