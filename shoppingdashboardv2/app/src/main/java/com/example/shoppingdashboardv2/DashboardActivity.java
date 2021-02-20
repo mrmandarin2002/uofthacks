@@ -11,6 +11,9 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = "DashboardActivity";
 
-    public ArrayList<Task> mTasks = new ArrayList<>(); // want to populate this from the database
+    // want to populate this from the database
 
     private FloatingActionButton AddTask_flabt;
     @Override
@@ -27,8 +30,14 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        // should be pulling data from server as mTasks
-
+        // should be pulling data from server as mTasks, need to thread this
+        interactions cur_interaction = ServerSingleton.get().getMinteracations();
+        try {
+            ServerSingleton.get().setmTasks( (ArrayList<Task>) cur_interaction.
+                    pull_events(ServerSingleton.get().getmCommunityCode()));// need to change return type in interactions
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
 
         Log.d(TAG, "onCreate: started");
 
@@ -41,19 +50,28 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         Task task0 = new Task("Bob", "Loblaws", date_cur, date_cur, 3, nonEmptyArray);
-        mTasks.add(task0);
+        ServerSingleton.get().addmTasks(task0);
 
         Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, nonEmptyArray);
-        mTasks.add(task1);
+        ServerSingleton.get().addmTasks(task1);
+        // do not normally make changes here
 
         if (getIntent().hasExtra("newMessage")) {
             String newMessage = getIntent().getStringExtra("newMessage");
             String name = getIntent().getStringExtra("name");
-            for (int i = 0; i < mTasks.size(); i++) {
-                if (mTasks.get(i).getName().equals(name)) {
-                    ArrayList<String> updatedRequests = mTasks.get(i).getRequests();
+            for (int i = 0; i < ServerSingleton.get().getmTasks().size(); i++) {
+                if (ServerSingleton.get().getmTasks().get(i).getName().equals(name)) {
+                    ArrayList<String> updatedRequests = ServerSingleton.get().getmTasks().get(i).getRequests();
                     updatedRequests.add(newMessage);
+                    ArrayList<Task> mTasks = ServerSingleton.get().getmTasks();
                     mTasks.get(i).setRequests(updatedRequests);
+                    ServerSingleton.get().setmTasks(mTasks);
+                    try {
+                        cur_interaction.push_events(ServerSingleton.get().getmCommunityCode(),
+                                ServerSingleton.get().getmTasks());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     // then need to update to server
                 }
             }
@@ -75,7 +93,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void createRecyclerView(){
         Log.d(TAG, "CreateRecyclerView");
         RecyclerView taskRV = findViewById(R.id.taskRV);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mTasks, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(ServerSingleton.get().getmTasks(), this);
         taskRV.setAdapter(adapter);
         taskRV.setLayoutManager(new LinearLayoutManager(this));
     }

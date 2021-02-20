@@ -23,29 +23,24 @@ Button SignUp_BT;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        interactions cur_interactions = null;
-        try {
-            cur_interactions = new interactions();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         usernameLogIn_et = findViewById(R.id.usernameLogIn_et);
         LogInPassword_et = findViewById(R.id.LogInPassword_et);
         Signin_bt = findViewById(R.id.Signin_bt);
         SignUp_BT = findViewById(R.id.SignUp_BT);
 
-        interactions finalCur_interactions = cur_interactions;
 
         Signin_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//                    finalCur_interactions.check_user(usernameLogIn_et.getText().toString(),
-//                            LogInPassword_et.getText().toString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                String newUsername = usernameLogIn_et.getText().toString();
+                try {
+                    ServerSingleton.get().getMinteracations().check_user(newUsername,
+                            LogInPassword_et.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                ServerSingleton.get().setmUsername(newUsername);
 
                 Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                 startActivity(intent);

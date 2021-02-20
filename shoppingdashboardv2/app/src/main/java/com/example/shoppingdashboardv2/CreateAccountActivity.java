@@ -32,19 +32,16 @@ public class CreateAccountActivity extends AppCompatActivity {
         createActBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // gonna have to change this... can't connect everywhere
-                interactions cur_interactions = null;
+                String newUsername = usernameET.getText().toString();
                 try {
-                    cur_interactions = new interactions();
+                    ServerSingleton.get().getMinteracations().sign_up(newUsername,
+                            passwordET.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                try {
-                    cur_interactions.sign_up(usernameET.getText().toString(), passwordET.getText().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ServerSingleton.get().setmUsername(newUsername);
+
                 Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                 startActivity(intent);
             }

@@ -47,6 +47,8 @@ public class AddTaskActivity extends AppCompatActivity {
                     {
 
                         String name = nameField.getText().toString();
+                        // replace this with getting the username from the server
+
                         String dest = destField.getText().toString();
                         String sDate = dateTimeStartField.getText().toString();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -72,6 +74,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         Task addedTask = new Task(name, dest, startDate, returnDate, maximum_orders, requests);
 
                         // need to add the task here!!!
+                        ServerSingleton.get().addmTasks(addedTask);
 
                         Intent intent = new Intent(view.getContext(), DashboardActivity.class);
                         startActivity(intent);

@@ -76,6 +76,8 @@ public class ViewTaskActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Sorry, this is full. Click " +
                             "cancel to return to the dashboard", Toast.LENGTH_SHORT).show();
                 } else{
+
+                    // replace nameET2 with getting the username from the server
                     String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
                             + groceryListET2.getText().toString() + " to be delivered to: " +
                             addressET2.getText().toString() + ". The approximate cost is: " +
