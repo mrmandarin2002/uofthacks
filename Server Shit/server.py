@@ -50,8 +50,13 @@ class server():
     def load_files(self):
         self.users = {}
         self.communities = {}
-        f = open ("user_info.txt", "r", encoding="latin-1")
-        lines = f.readlines()
+
+        self.user_text = open ("user_info.txt", "a", encoding="latin-1")
+        self.user_text_edit = open ("user_info.txt", "w", encoding="latin-1")
+        self.comm_text = open ("community_info.txt", "a", encoding="latin-1")
+
+        self.f = open ("user_info.txt", "r", encoding="latin-1")
+        lines = self.f.readlines()
 
         for line in lines:
             entries = line.split ("|")
@@ -65,6 +70,7 @@ class server():
 
         g = open ("community_info.txt", "r", encoding="latin-1")
         lines = g.readlines()
+
         
         for line in lines: 
             entries = line.split ("|")

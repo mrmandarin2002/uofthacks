@@ -79,9 +79,31 @@ class client_thread():
                 return 0
 
             self.controller.users[args[0]] = [args[1], []]
+            self.controller.user_text.write (args[0] + " " + args[1] + " | ")
             return 1
     
     def join_community (self, args):
+        #args [user, code]; both user and code are strings
+        #return 1 for true, 0 for false
+
+        #check if user already has that code meaning user is alreayd in that community
+        user = args[0]
+        code = args[1]
+        if code in self.controller.users[user][1]:
+            return 0
+        else: 
+            self.controller.users[user][1].append (code)
+            
+            lines = self.controller.f.readlines()
+            
+            for line in lines:
+                entries = line.split ("|")
+
+                user_pass = entries[0][:-1].split (" ")
+                user = user_pass [0]
+                pwrd = user_pass [1]
+
+
         pass
 
     def get_community (self, args):
@@ -89,17 +111,16 @@ class client_thread():
 
     def create_community (self, args):
         #create community and write it to the file with username who created it underneath
-        pass
-    
-    def get_events (self, args):
-        #get list of events that user is part of
+        #args [user, name]
+        #return code
         pass
 
-    def create_event (self, args):
-        #create and event and write it to the file or store it in list
+    def push_event (self, args):
+        #we receive events and we update dicts
+        
         pass
 
-    def respond_event (self, args):
+    def pull_event (self, args):
         #response to an event should be added as another parameter? to the list or file events are stored in
         pass
 
