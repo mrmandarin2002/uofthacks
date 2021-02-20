@@ -57,10 +57,12 @@ class server():
         for line in lines:
             entries = line.split ("|")
 
-            user_pass = entries[0][:-1]
+            user_pass = entries[0][:-1].split (" ")
+            user = user_pass [0]
+            pwrd = user_pass [1]
             code = entries[1][1:-1].split (" ")
 
-            self.users [user_pass] = code
+            self.users [user] = [pwrd, [code]]
 
         f = open ("community_info.txt", "r", encoding="latin-1")
         lines = f.readlines()

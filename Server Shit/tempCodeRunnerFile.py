@@ -9,11 +9,11 @@ def check_user (user, pwrd):
         # print (line)
         entries = line.split ("|")
 
-        user_pass = entries[0][:-1]
+        user_pass = entries[0][:-1].split(" ")
         code = entries[1][1:-1].split (" ")
-        print (user_pass + "asdf")
-        print (code [0] + "asdf")
-        print (code[1] + "asdf")
+        print (user_pass[0] )
+        print (code [0])
+        print (code[1])
         # print (com_code + "nice"
 
 def sign_up (user, pwrd):

@@ -66,8 +66,7 @@ class client_thread():
     def check_user(self, args):
         #check if the user and pass are viable; return true if they are
         for key in self.controller.users:
-            users_pass = key.split (" ")
-            if users_pass [0] == args[0] and users_pass [1] == args[1]:
+            if key == args[0] and self.controller.users[key] == args[1]:
                 return 1
         
         return 0
@@ -76,13 +75,10 @@ class client_thread():
         #returns 1 if user is taken, 2 if pass is taken
         #returns 0 if sign up is successful
         for key in self.controller.users:
-            users_pass = key.split (" ")
-            if users_pass[0] == args[0]: 
+            if key == args[0] or self.controller.users[key] == args[1]: 
                 return 1
-            elif users_pass[1] == args[1]:
-                return 2
 
-            self.controller.users[users_pass] = []
+            self.controller.users[args[0]] = [args[1], []]
             return 0
     
     def get_community (self):
