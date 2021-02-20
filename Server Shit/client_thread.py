@@ -98,15 +98,15 @@ class client_thread():
             
             lines = self.controller.f.readlines()
             
-            for line in lines:
-                entries = line.split ("|")
+            for i in range (len (lines)):
+                entries = lines[i].split ("|")
 
                 user_pass = entries[0][:-1].split (" ")
-                user = user_pass [0]
-                pwrd = user_pass [1]
-
-
-        pass
+                if user_pass[0] == user:
+                    lines[i] = lines[i] + " " + code
+                    self.controller.user_text_edit.write (lines)
+                    return 1 
+            return 0
 
     def get_community (self, args):
         return self.controller.users[args][1]
