@@ -122,7 +122,7 @@ class client_thread():
         user = args[0]
         name = args[1]
 
-        code = name [0:len (name)//2] + str (random.randint(100, 999))
+        code = name [:len (name)//2] + str (random.randint(100, 999))
 
         self.controller.users[user][1].append (code)
 
