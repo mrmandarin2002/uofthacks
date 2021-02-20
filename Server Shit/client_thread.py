@@ -1,4 +1,4 @@
-import socket, threading
+import socket, threading, struct
 from datetime import datetime
 
 PORT = 5050
@@ -16,14 +16,55 @@ class client_thread():
         self.conn = conn
         self.addr = addr
         self.client_name = ""
+        self.functions = {
+
+            "fucker" : self.fucker,
+            "check_user" : self.check_user,
+            "sign_up" : self.sign_up
+
+            #add all the methods within this class
+
+
+        }
         threading.Thread(target = self.handle_client, args = (conn, addr)).start()
 
     def handle_client(self, conn, addr):
         print(get_time() + f"Client with address {addr} connected.")
         while True:
-            pass
+            #first receive the length of message
+            msg_length = conn.recv(HEADER).decode()
+            if not msg_length:
+                print("OOPS SOMETHING WENT WRONG")
+                break
 
-    def check_user (self, user, pwrd):
+            print(get_time() + f"Received data from address {addr}")
+            print("MSG_LENGTH:", msg_length)
+            msg_length = int(msg_length)
+
+            #receive message from client
+            data = ""
+            while len(data) < msg_length:
+                data += conn.recv(msg_length).decode()
+                print("DATA: ", data)
+            if data == DISCONNECT_MESSAGE:
+                print(get_time() + f"{addr} disconnected!")
+                conn.close()
+                break
+            else:
+                function_name = data.split(';')[0]
+                f_args = data.split(';')[1].split('|') #note this is a list
+                f_args.remove('')
+                returned_value = self.functions[function_name](f_args)
+                returned_value = str(returned_value) + '\n'
+                conn.send(returned_value.encode())
+                print("SENT")
+
+    #just a testing function
+    def fucker(self, args):
+        print(args)
+        return 1
+
+    def check_user(self, args):
         #check if the user and pass are viable; return true if they are
         lines = open ("user_info.txt", "r", encoding="latin-1").readlines()
     
@@ -44,7 +85,7 @@ class client_thread():
 
         return False
     
-    def sign_up (self, user, pwrd):
+    def sign_up (self, args):
         f = open ("user_info.txt", "r", encoding="latin-1")
         lines = f.readlines()
         f.close()
@@ -62,7 +103,7 @@ class client_thread():
         #or search communities for user and return their code
         pass
 
-    def create_community (self, user):
+    def create_community (self, args):
         #create community and write it to the file with username who created it underneath
         pass
     
@@ -78,6 +119,8 @@ class client_thread():
         #response to an event should be added as another parameter? to the list or file events are stored in
         pass
 
+
+    
     
 
 

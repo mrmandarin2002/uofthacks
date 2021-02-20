@@ -16,7 +16,6 @@ class server():
 
     def load_files(self):
         users = {}
-        
 
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket
