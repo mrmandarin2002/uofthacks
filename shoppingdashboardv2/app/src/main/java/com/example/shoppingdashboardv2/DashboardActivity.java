@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ArrayList<Task> mTasks = new ArrayList<>(); // want to populate this from the database
 
-
+    private FloatingActionButton AddTask_flabt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,17 @@ public class DashboardActivity extends AppCompatActivity {
         Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21);
         mTasks.add(task1);
         createRecyclerView();
+
+        AddTask_flabt = findViewById(R.id.AddTask_flabt);
+        AddTask_flabt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //takes you to Add Task Fragment
+            }
+        });
     }
+
+
 
     private void createRecyclerView(){
         Log.d(TAG, "CreateRecyclerView");
@@ -43,4 +56,7 @@ public class DashboardActivity extends AppCompatActivity {
         taskRV.setAdapter(adapter);
         taskRV.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
+
 }
