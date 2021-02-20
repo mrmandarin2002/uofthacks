@@ -40,12 +40,12 @@ Button SignUp_BT;
         Signin_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    finalCur_interactions.check_user(usernameLogIn_et.getText().toString(),
-                            LogInPassword_et.getText().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    finalCur_interactions.check_user(usernameLogIn_et.getText().toString(),
+//                            LogInPassword_et.getText().toString());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                 startActivity(intent);

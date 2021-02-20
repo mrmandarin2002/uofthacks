@@ -35,6 +35,8 @@ public class ViewTaskActivity extends AppCompatActivity {
     private Button submitReqBTN2;
     private Button cancelBTN2;
 
+    ArrayList<String> messages;
+
     Task curTask;
     Date startDate;
     Date endDate;
@@ -69,20 +71,27 @@ public class ViewTaskActivity extends AppCompatActivity {
         submitReqBTN2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
-                        + groceryListET2.getText().toString() + " to be delivered to: " +
-                        addressET2.getText().toString() + ". The approximate cost is: " +
-                        costET2.getText().toString();
 
-                String messagesTxt = message_TV2.getText().toString();
-                messagesTxt += newMessage + "\n";
+                if (messages.size() == curTask.getMax_orders()) {
+                    Toast.makeText(v.getContext(), "Sorry, this is full. Click " +
+                            "cancel to return to the dashboard", Toast.LENGTH_SHORT).show();
+                } else{
+                    String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
+                            + groceryListET2.getText().toString() + " to be delivered to: " +
+                            addressET2.getText().toString() + ". The approximate cost is: " +
+                            costET2.getText().toString();
 
-                message_TV2.setText(messagesTxt);
+                    String messagesTxt = message_TV2.getText().toString();
+                    messagesTxt += newMessage + "\n";
 
-                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
-                intent.putExtra("newMessage", newMessage);
-                intent.putExtra("name", curTask.getName());
-                startActivity(intent);
+                    message_TV2.setText(messagesTxt);
+
+                    Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                    intent.putExtra("newMessage", newMessage);
+                    intent.putExtra("name", curTask.getName());
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -113,7 +122,6 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     private void setData() {
 
-        ArrayList<String> messages = new ArrayList<>();
         String messagesText = "";
         messages = curTask.getRequests();
         if (messages.size() == 0) {
@@ -142,7 +150,8 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         String startText = "Start time: " + dateFormat.format(startDate);
         String endText = "End time: " + dateFormat.format(endDate);
-        String numpeopleText = "Max Count: " + curTask.getMax_orders();
+        String numpeopleText = "Current availability: " + messages.size() + "/"
+                + curTask.getMax_orders();
         String iconText = Character.toString(curTask.getDestination().charAt(0));
 
         task_nameTV2.setText(nameText);

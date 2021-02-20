@@ -71,6 +71,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
                         Task addedTask = new Task(name, dest, startDate, returnDate, maximum_orders, requests);
 
+                        // need to add the task here!!!
+
                         Intent intent = new Intent(view.getContext(), DashboardActivity.class);
                         startActivity(intent);
 
