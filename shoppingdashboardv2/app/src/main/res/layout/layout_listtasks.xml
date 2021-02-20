@@ -1,66 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listtasks_rv_ConLay"
+    android:id="@+id/listtasks_rv_RelLay"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="100dp">
 
     <TextView
         android:id="@+id/task_nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:paddingTop="15dp"
-        android:text="name"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_toEndOf="@+id/iconTV"
+        android:layout_marginStart="8dp"
+        android:text="name" />
 
     <TextView
         android:id="@+id/task_locationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:text="location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/task_nameTV" />
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/task_nameTV"
+        android:text="location" />
 
     <TextView
         android:id="@+id/task_starttime_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
-        android:text="start time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/task_numpeople_TV"
-        app:layout_constraintTop_toBottomOf="@+id/task_nameTV"
-        app:layout_constraintVertical_bias="0.042" />
+        android:layout_below="@+id/iconTV"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:text="start time" />
 
     <TextView
         android:id="@+id/task_endtime_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingRight="15dp"
-        android:text="end time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
-        app:layout_constraintStart_toEndOf="@+id/task_starttime_TV"
-        app:layout_constraintTop_toBottomOf="@+id/task_locationTV"
-        app:layout_constraintVertical_bias="0.042" />
+        android:layout_below="@+id/iconTV"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/task_starttime_TV"
+        android:text="end time" />
 
     <TextView
         android:id="@+id/task_numpeople_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/task_nameTV"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:paddingLeft="15dp"
-        android:text="number of people"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_nameTV"
-        app:layout_constraintVertical_bias="0.042" />
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/iconTV"
+        android:text="number of people" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/iconTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="icon text"
+        android:textSize="30sp" />
+
+</RelativeLayout>
