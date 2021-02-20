@@ -88,11 +88,13 @@ class client_thread():
         #args [user, code]; both user and code are strings
         #return 1 for true, 0 for false
 
-        #check if user already has that code meaning user is alreayd in that community
+        
         user = args[0]
         code = args[1]
+        #check if user already has that code meaning user is alreayd in that community
         if code in self.controller.users[user][1]:
             return 0
+        #write the new community code to the file
         else: 
             self.controller.users[user][1].append (code)
             
@@ -115,6 +117,8 @@ class client_thread():
         #create community and write it to the file with username who created it underneath
         #args [user, name]
         #return code
+
+        
         pass
 
     def push_event (self, args):
