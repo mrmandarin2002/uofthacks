@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,14 +49,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String startText = "Start time: " + dateFormat.format(mTasks.get(position).getStart());
         String endText = "End time: " + dateFormat.format(mTasks.get(position).getFinish());
         String numpeopleText = "Max Count: " + mTasks.get(position).getMax_orders();
+        String iconText = Character.toString(mTasks.get(position).getDestination().charAt(0));
 
         holder.task_nameTV.setText(nameText);
         holder.task_locationTV.setText(locationText); // this could throw an error...
         holder.task_starttimeTV.setText(startText);
         holder.task_endtimeTV.setText(endText);
         holder.task_numpeopleTV.setText(numpeopleText);
+        holder.iconTextTV.setText(iconText);
+        holder.iconTextTV.setAllCaps(true);
 
-        holder.listtasks_rv_ConLay.setOnClickListener(new View.OnClickListener() {
+        holder.listtasks_rv_RelLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on: " + mTasks.get(position).getName());
@@ -78,8 +82,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView task_starttimeTV;
         TextView task_endtimeTV;
         TextView task_numpeopleTV;
+        TextView iconTextTV;
 
-        ConstraintLayout listtasks_rv_ConLay;
+        RelativeLayout listtasks_rv_RelLay;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,8 +94,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             task_starttimeTV = itemView.findViewById(R.id.task_starttime_TV);
             task_endtimeTV = itemView.findViewById(R.id.task_endtime_TV);
             task_numpeopleTV = itemView.findViewById(R.id.task_numpeople_TV);
+            iconTextTV = itemView.findViewById(R.id.iconTV);
 
-            listtasks_rv_ConLay = itemView.findViewById(R.id.listtasks_rv_ConLay);
+            listtasks_rv_RelLay = itemView.findViewById(R.id.listtasks_rv_RelLay);
         }
     }
 }
