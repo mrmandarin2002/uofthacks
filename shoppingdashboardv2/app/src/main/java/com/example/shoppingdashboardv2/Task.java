@@ -1,5 +1,8 @@
 package com.example.shoppingdashboardv2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.TimeZone;
 /**
  * Task object with name, location, start and end dates, and number of orders
  */
-public class Task {
+public class Task implements Parcelable {
     private String name;
     private String destination;
 
@@ -44,6 +47,25 @@ public class Task {
 
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
     }
+
+    protected Task(Parcel in) {
+        name = in.readString();
+        destination = in.readString();
+        max_orders = in.readInt();
+        requests = in.createStringArrayList();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     /**
      * @return String person's name
@@ -87,5 +109,18 @@ public class Task {
     public void setTimeZone(){
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(destination);
+        dest.writeInt(max_orders);
+        dest.writeStringList(requests);
     }
 }
