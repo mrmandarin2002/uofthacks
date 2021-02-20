@@ -1,11 +1,15 @@
 package com.example.shoppingdashboardv2;
 
+import android.icu.text.SimpleDateFormat;
+
 import com.example.shoppingdashboardv2.Task;
 
 import java.net.*;
 import java.io.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -112,16 +116,25 @@ public class interactions {
     }
 
     //it's legit not possible to make more disgusting code than this
-    public List<Task> pull_events(String community_code) throws IOException{
+    public List<Task> pull_events(String community_code) throws IOException, ParseException {
 
         String data = send("pull_events", Arrays.asList(community_code));
-        List<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         for(String task : data.split("|")){
 
             List<String> task_list = Arrays.asList(task.split(":"));
 
+            ArrayList<String> requests = new ArrayList<>();
 
+            for(int x = 5; x < task_list.size(); x++){
+                requests.add(task_list.get(x));
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = sdf.parse(task_list.get(2));
+            Date endDate = sdf.parse(task_list.get(3));
+            Task temp_task = new Task(task_list.get(0), task_list.get(1), startDate, endDate, Integer.parseInt(task_list.get(4)), requests);
+            tasks.add(temp_task);
         }
         return tasks;
     }
