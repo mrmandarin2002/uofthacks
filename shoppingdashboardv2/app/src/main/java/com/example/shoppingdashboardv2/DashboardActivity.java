@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +19,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = "DashboardActivity";
 
-    private ArrayList<Task> mTasks = new ArrayList<>(); // want to populate this from the database
+    public ArrayList<Task> mTasks = new ArrayList<>(); // want to populate this from the database
 
     private FloatingActionButton AddTask_flabt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        // should be pulling data from server as mTasks
+
+
         Log.d(TAG, "onCreate: started");
 
         // populate ArrayList here
@@ -40,18 +45,33 @@ public class DashboardActivity extends AppCompatActivity {
 
         Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, nonEmptyArray);
         mTasks.add(task1);
+
+        if (getIntent().hasExtra("newMessage")) {
+            String newMessage = getIntent().getStringExtra("newMessage");
+            String name = getIntent().getStringExtra("name");
+            for (int i = 0; i < mTasks.size(); i++) {
+                if (mTasks.get(i).getName().equals(name)) {
+                    ArrayList<String> updatedRequests = mTasks.get(i).getRequests();
+                    updatedRequests.add(newMessage);
+                    mTasks.get(i).setRequests(updatedRequests);
+                    // then need to update to server
+                }
+            }
+        }
+
         createRecyclerView();
 
         AddTask_flabt = findViewById(R.id.AddTask_flabt);
         AddTask_flabt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //takes you to Add Task Fragment
+                Intent intent = new Intent(v.getContext(), AddTaskActivity.class);
+                startActivity(intent);
             }
         });
+
+
     }
-
-
 
     private void createRecyclerView(){
         Log.d(TAG, "CreateRecyclerView");
@@ -60,7 +80,5 @@ public class DashboardActivity extends AppCompatActivity {
         taskRV.setAdapter(adapter);
         taskRV.setLayoutManager(new LinearLayoutManager(this));
     }
-
-
 
 }

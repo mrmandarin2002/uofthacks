@@ -78,29 +78,30 @@ class client_thread():
         #returns 0 if sign up is successful
         for key in self.controller.users:
             if key == args[0] or self.controller.users[key] == args[1]: 
-                return 1
+                return 0
 
             self.controller.users[args[0]] = [args[1], []]
-            return 0
+            return 1
     
-    def get_community (self):
-        #get communities that the user is part of 
-        #or search communities for user and return their code
+    def join_community (self, args):
         pass
+
+    def get_community (self, args):
+        return self.controller.users[args][1]
 
     def create_community (self, args):
         #create community and write it to the file with username who created it underneath
         pass
     
-    def get_events (self):
+    def get_events (self, args):
         #get list of events that user is part of
         pass
 
-    def create_event (self):
+    def create_event (self, args):
         #create and event and write it to the file or store it in list
         pass
 
-    def respond_event (self):
+    def respond_event (self, args):
         #response to an event should be added as another parameter? to the list or file events are stored in
         pass
 
