@@ -52,7 +52,6 @@ class server():
         self.communities = {}
         f = open ("user_info.txt", "r", encoding="latin-1")
         lines = f.readlines()
-        f.close
 
         for line in lines:
             entries = line.split ("|")
@@ -64,9 +63,8 @@ class server():
 
             self.users [user] = [pwrd, [code]]
 
-        f = open ("community_info.txt", "r", encoding="latin-1")
-        lines = f.readlines()
-        f.close
+        g = open ("community_info.txt", "r", encoding="latin-1")
+        lines = g.readlines()
         
         for line in lines: 
             entries = line.split ("|")
