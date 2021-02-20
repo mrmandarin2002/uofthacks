@@ -14,11 +14,16 @@ def get_time():
 
 class server():
 
+    def load_files(self):
+        users = {}
+        
+
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket
         self.ip_address = socket.gethostbyname(socket.gethostname())
         self.server_address = (self.ip_address, PORT)
         self.server.bind(self.server_address)
+        self.load_files()
         self.client_list = []
         self.server_loop()
 
