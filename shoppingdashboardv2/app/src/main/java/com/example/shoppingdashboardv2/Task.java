@@ -2,6 +2,7 @@ package com.example.shoppingdashboardv2;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -15,6 +16,7 @@ public class Task {
     private Date start;
     private Date finish;
     private int max_orders;
+    private ArrayList<String> requests;
 
 
 
@@ -32,12 +34,13 @@ public class Task {
      * @param finish - when they are going
      * @param max_orders - how many orders they are willing to facilitate
      */
-    public Task(String name, String destination, Date start, Date finish, int max_orders) {
+    public Task(String name, String destination, Date start, Date finish, int max_orders, ArrayList<String> requests) {
         this.name = name;
         this.destination = destination;
         this.start = start;
         this.finish = finish;
         this.max_orders = max_orders;
+        this.requests = requests;
 
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
     }
@@ -76,6 +79,11 @@ public class Task {
     public int getMax_orders() {
         return max_orders;
     }
+
+    public ArrayList<String> getRequests() {
+        return requests;
+    }
+
     public void setTimeZone(){
         TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
 
