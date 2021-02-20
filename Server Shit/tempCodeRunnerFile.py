@@ -9,19 +9,12 @@ def check_user (user, pwrd):
         # print (line)
         entries = line.split ("|")
 
-        real_user = entries[0].split(" ")[0]
-        real_pwrd = entries[0].split(" ")[1]
-
-        com_code = entries[1].replace(" ", "")
-        # print (real_user, real_pwrd)
-        print (com_code + "nice")
-        if com_code == "":
-            print (com_code, "lol")
-
-        if user == real_user and pwrd == real_pwrd: 
-            return True
-
-    return False
+        user_pass = entries[0][:-1].split(" ")
+        code = entries[1][1:-1].split (" ")
+        print (user_pass[0] )
+        print (code [0])
+        print (code[1])
+        # print (com_code + "nice"
 
 def sign_up (user, pwrd):
     f = open ("user_info.txt", "r", encoding="latin-1")
@@ -37,7 +30,7 @@ def sign_up (user, pwrd):
     return True
 
     
-print (check_user ("vincent", "tang"))
+check_user ("vincent", "tang")
 # print (check_user ("vincent", "praxisfucks"))
 
 # print (sign_up ("vincent", "praxisfucks"))
