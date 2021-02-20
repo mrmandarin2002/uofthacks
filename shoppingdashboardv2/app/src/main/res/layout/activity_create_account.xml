@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordET" />
 
     <TextView
-        android:id="@+id/retLoginBTN"
+        android:id="@+id/retLoginTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
