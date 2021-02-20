@@ -3,14 +3,17 @@ def server_loop(self):
     pass
 
 def check_user (user, pwrd):
-    lines = open ("community_info.txt", "r", encoding="latin-1").readlines()
+    lines = open ("user_info.txt", "r", encoding="latin-1").readlines()
 
     for line in lines: 
         # print (line)
         entries = line.split ("|")
 
-        print (entries[0].replace (" ", "") + "fuk")
-        print (entries[1].replace (" ", "") + "fuk")
+        user_pass = entries[0][:-1]
+        code = entries[1][1:-1].split (" ")
+        print (user_pass + "asdf")
+        print (code [0] + "asdf")
+        print (code[1] + "asdf")
         # print (com_code + "nice"
 
 def sign_up (user, pwrd):
