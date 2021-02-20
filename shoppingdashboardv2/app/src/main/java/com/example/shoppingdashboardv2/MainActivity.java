@@ -21,10 +21,12 @@ public class MainActivity extends AppCompatActivity {
         mainBTN = findViewById(R.id.mainBTN);
         nameET = findViewById(R.id.nameET);
 
+
         mainBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Hi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Done toasting", Toast.LENGTH_LONG).show();
             }
         });
 
