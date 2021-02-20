@@ -25,7 +25,7 @@ class community():
     #returns True if successfully added
     #returns False is user already in community
     def add_user(self, username):
-        if username not in users:
+        if username not in self.users:
             self.users.append(username)
             return True
         else:
@@ -50,6 +50,29 @@ class server():
     def load_files(self):
         self.users = {}
         self.communities = {}
+        f = open ("user_info.txt", "r", encoding="latin-1")
+        lines = f.readlines()
+        f.close
+
+        for line in lines:
+            entries = line.split ("|")
+
+            real_user = entries[0].split(" ")[0]
+            real_pwrd = entries[0].split(" ")[1]
+
+            self.users [real_user] = real_pwrd
+
+        f = open ("community_info.txt", "r", encoding="latin-1")
+        lines = f.readlines()
+        f.close
+        
+        for line in lines: 
+            entries = line.split ("|")
+            code = entries[0].replace (" ", "")
+            name = entries[1].replace (" ", "")
+            self.communities [code] = community(name, code)
+
+
 
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket

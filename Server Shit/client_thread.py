@@ -65,37 +65,22 @@ class client_thread():
 
     def check_user(self, args):
         #check if the user and pass are viable; return true if they are
-        lines = open ("user_info.txt", "r", encoding="latin-1").readlines()
-    
-        for line in lines: 
-            # print (line)
-            entries = line.split ("|")
-
-            real_user = entries[0].split(" ")[0]
-            real_pwrd = entries[0].split(" ")[1]
-
-            # com_code = entries[1].replace(" ", "")
-
-            # print (real_user, real_pwrd)
-            # print (com_code)
-
-            if user == real_user and pwrd == real_pwrd: 
-                return True
-
-        return False
+        for key in self.controller.users:
+            if key == args[0] and self.controller.users[key] == args[1]:
+                return 1
     
     def sign_up (self, args):
-        f = open ("user_info.txt", "r", encoding="latin-1")
-        lines = f.readlines()
-        f.close()
-        
-        for line in lines:
-            if line.find (user + " " + pwrd) != -1:
-                return False
-        # f.write (user + " " + pwrd + " |")
-        g = open ("user_info.txt", "a")
-        g.write ("\n" + user + " " + pwrd + " | ")
-        return True
+        #returns 1 if user is taken, 2 if pass is taken
+        #returns 0 if sign up is successful
+        for key in self.controller.users:
+            if key == args[0]: 
+                return 1
+            elif self.controller.users [key] == args[1]:
+                return 2
+
+            self.controller.users[args[0]] = args [1]
+            return 0
+        pass
     
     def get_community (self):
         #get communities that the user is part of 
