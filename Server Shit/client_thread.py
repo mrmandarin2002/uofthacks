@@ -21,8 +21,10 @@ class client_thread():
 
             "fucker" : self.fucker,
             "check_user" : self.check_user,
-            "sign_up" : self.sign_up
-
+            "sign_up" : self.sign_up,
+            "get_community" : self.get_community,
+            "create_community" : self.create_community,
+        
             #add all the methods within this class
 
         }
