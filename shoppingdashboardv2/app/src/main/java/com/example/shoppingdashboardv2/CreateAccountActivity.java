@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -34,24 +35,29 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newUsername = usernameET.getText().toString();
                 interactions cur_interactions = ServerSingleton.get().getMinteracations();
+                int check = 0;
                 try {
-                    cur_interactions.sign_up(newUsername,
+                    check = cur_interactions.sign_up(newUsername,
                             passwordET.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                ServerSingleton.get().setmUsername(newUsername);
+                if(check == 1) {
+                    ServerSingleton.get().setmUsername(newUsername);
 
-                try {
-                    ServerSingleton.get().setmCommunityCode(cur_interactions.get_community
-                            (ServerSingleton.get().getmUsername()).get(0));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        ServerSingleton.get().setmCommunityCode(cur_interactions.get_community
+                                (ServerSingleton.get().getmUsername()).get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                    startActivity(intent);
+                } else{
+                    Toast.makeText(v.getContext(), "Your username is taken bro", Toast.LENGTH_SHORT).show();
                 }
-
-                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
-                startActivity(intent);
             }
         });
 
