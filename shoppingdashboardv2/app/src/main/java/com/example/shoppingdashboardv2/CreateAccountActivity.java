@@ -70,9 +70,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                         }
 
                     }
-
-
-
                     Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                     startActivity(intent);
                 } else{
