@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,9 +32,8 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        nameField = (EditText)findViewById(R.id.name_et);
         destField = (EditText)findViewById(R.id.destination_et);
-        dateTimeReturnField = (EditText)findViewById(R.id.startDateTime_et);//this part gets the start date and time from the text field
+        dateTimeStartField = (EditText)findViewById(R.id.startDateTime_et);//this part gets the start date and time from the text field
         dateTimeReturnField = (EditText)findViewById(R.id.returnDateTime_et); // this part gets the return date and time from the text field
 
         maxOrdersField   = (EditText)findViewById(R.id.maxOrders_et);
@@ -47,13 +47,13 @@ public class AddTaskActivity extends AppCompatActivity {
                     public void onClick(View view)
                     {
 
-                        String name = nameField.getText().toString();
-                        name = ServerSingleton.get().getmUsername();
+                        //String name = nameField.getText().toString();
+                        String name = ServerSingleton.get().getmUsername();
                         // replace this with getting the username from the server
 
                         String dest = destField.getText().toString();
                         String sDate = dateTimeStartField.getText().toString();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date startDate = new Date();
                         try {
                             startDate = sdf.parse(sDate);

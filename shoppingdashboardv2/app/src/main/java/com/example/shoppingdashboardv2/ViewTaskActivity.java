@@ -54,8 +54,6 @@ public class ViewTaskActivity extends AppCompatActivity {
         task_numpeopleTV2 = findViewById(R.id.task_numpeople_TV2);
         task_statusTV2 = findViewById(R.id.statusTV);
         message_TV2 = findViewById(R.id.messageTV2);
-
-        nameET2 = findViewById(R.id.nameET2);
         addressET2 = findViewById(R.id.addressET2);
         costET2 = findViewById(R.id.costET2);
         groceryListET2 = findViewById(R.id.groceryListET2);
@@ -79,7 +77,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 
                     // replace nameET2 with getting the username from the server
                     // name = ServerSingleton.get().getmUsername();
-                    String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
+                    String newMessage = "Hi my name is: " + ServerSingleton.get().getmUsername() + ". I am looking for: "
                             + groceryListET2.getText().toString() + " to be delivered to: " +
                             addressET2.getText().toString() + ". The approximate cost is: " +
                             costET2.getText().toString();

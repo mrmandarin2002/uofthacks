@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,9 +33,9 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        /*
         // should be pulling data from server as mTasks, need to thread this
         interactions cur_interaction = ServerSingleton.get().getMinteracations();
-
         try {
             ServerSingleton.get().setmTasks( (ArrayList<Task>) cur_interaction.
                     pull_events(ServerSingleton.get().getmCommunityCode()));
@@ -42,21 +44,10 @@ public class DashboardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+         */
         Log.d(TAG, "onCreate: started");
 
-        // populate ArrayList here
-        Date date_cur = new Date();
-        TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"));
-        ArrayList<String> nonEmptyArray = new ArrayList<>();
-        nonEmptyArray.add("LOOOK AT ME");
-        nonEmptyArray.add("THERE'S TWO OF US");
-
-        // shouldn't need this section after proper server integration
-        Task task0 = new Task("Bob", "Loblaws", date_cur, date_cur, 3, nonEmptyArray);
-        ServerSingleton.get().addmTasks(task0);
-
-        Task task1 = new Task("John Cena", "Longos", date_cur, date_cur, 21, nonEmptyArray);
-        ServerSingleton.get().addmTasks(task1);
         mTasks = ServerSingleton.get().getmTasks();
         // do not normally make changes here
 
@@ -70,7 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
                     mTasks.get(i).setRequests(updatedRequests);
                     ServerSingleton.get().setmTasks(mTasks);
                     try {
-                        cur_interaction.push_events(ServerSingleton.get().getmCommunityCode(),
+                        ServerSingleton.get().getMinteracations().push_events(ServerSingleton.get().getmCommunityCode(),
                                 ServerSingleton.get().getmTasks());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -80,7 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
 
-        createRecyclerView();
+        //createRecyclerView();
 
         AddTask_flabt = findViewById(R.id.AddTask_flabt);
         AddTask_flabt.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +81,41 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        content();
+
+
+
+    }
+
+    public void content(){
+
+        interactions cur_interaction = ServerSingleton.get().getMinteracations();
+        try {
+            ServerSingleton.get().setmTasks( (ArrayList<Task>) cur_interaction.
+                    pull_events(ServerSingleton.get().getmCommunityCode()));
+            mTasks = ServerSingleton.get().getmTasks();// need to change return type in interactions
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        createRecyclerView();
+        refresh(1000);
+    }
+
+    private void refresh(int milliseconds){
+
+        final Handler handler = new Handler();
+
+        final Runnable runnable = new Runnable(){
+
+
+            @Override
+            public void run() {
+                Toast.makeText(DashboardActivity.this, "REFRESHED", Toast.LENGTH_SHORT).show();
+                // should be pulling data from server as mTasks, need to thread this
+                content();
+            }
+        };
 
     }
 

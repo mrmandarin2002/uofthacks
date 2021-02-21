@@ -104,7 +104,7 @@ public class interactions{
     public ArrayList<String> get_community(String username) throws IOException{
         ArrayList<String> myList = new ArrayList<String>();
         String test_shit = send("get_community", Arrays.asList(username));
-
+        System.out.println(test_shit);
         for(String community : split_that_works(test_shit, "|")){
             myList.add(community);
         }
@@ -117,7 +117,9 @@ public class interactions{
 
     //returns community code
     public String create_community(String username, String community_name) throws IOException{
-        return send("create_community", Arrays.asList(username, community_name));
+        String test =  send("create_community", Arrays.asList(username, community_name));
+        System.out.println(test);
+        return test;
     }
 
 

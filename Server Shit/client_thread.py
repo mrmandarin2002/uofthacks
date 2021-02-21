@@ -111,7 +111,7 @@ class client_thread():
 
         self.controller.users[args[0]] = [args[1], []]
         user_text = open ("user_info.txt", "a", encoding="latin-1")
-        user_text.write ('\n' + args[0] + " " + args[1] + " | ")
+        user_text.write ('\n' + args[0] + " " + args[1] + " |")
         user_text.close()
         return 1
     
