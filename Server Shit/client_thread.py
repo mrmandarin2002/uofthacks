@@ -159,7 +159,7 @@ class client_thread():
         code = name [:len (name)//2] + str (random.randint(100, 999))
 
         self.controller.users[user][1].append (code)
-        self.controller.communities[code] = self.community(name, code)
+        self.controller.communities[code] = community(name, code)
 
         #write it to the file
         f = open ("user_info.txt", "r", encoding="latin-1")
