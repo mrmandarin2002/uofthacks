@@ -1,12 +1,11 @@
 package com.example.shoppingdashboardv2;
 
-import android.icu.text.SimpleDateFormat;
-
 import com.example.shoppingdashboardv2.Task;
 
 import java.net.*;
 import java.io.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,7 +23,6 @@ public class interactions {
     PrintWriter out;
     BufferedReader in;
     Socket tcp_socket;
-
 
 
     public interactions() throws IOException {
@@ -49,17 +47,17 @@ public class interactions {
             length_msg += '0';
         }
         length_msg += String.valueOf(message_str.length());
-        System.out.println("LENGTH MSG: " + length_msg);
-        System.out.println("MSG: " + message_str);
+        //System.out.println("LENGTH MSG: " + length_msg);
+        //System.out.println("MSG: " + message_str);
         this.out.print(length_msg);
         this.out.flush();
         this.out.print(message_str);
         this.out.flush();
 
-        System.out.println("OK");
+        //System.out.println("OK");
 
         String returned_input = this.in.readLine();
-        System.out.println("RETURNED SHIT: " + returned_input);
+        //System.out.println("RETURNED SHIT: " + returned_input);
         return returned_input;
     }
 
@@ -75,10 +73,41 @@ public class interactions {
         return Integer.parseInt(send("sign_up", Arrays.asList(username, password)));
     }
 
-    //returns list of communities user is in
-    public List<String> get_user_community(String username) throws IOException{
-        return Arrays.asList(send("get_user_community", Arrays.asList(username)));
+    public ArrayList<String> split_that_works(String thing, String splitter){
+        ArrayList <String> myList = new ArrayList<String>();
+        String temp_s = "";
+        for(int x = 0; x < thing.length(); x++){
+            if(thing.charAt(x) == splitter.charAt(0)){
+                myList.add(temp_s);
+                temp_s = "";
+            } else{
+                temp_s += thing.charAt(x);
+            }
+        }
+        myList.add(temp_s);
+        return myList;
     }
+
+    //returns list of communities user is in
+    public ArrayList<String> get_community(String username) throws IOException{
+        ArrayList<String> myList = new ArrayList<String>();
+        String test_shit = send("get_community", Arrays.asList(username));
+
+        for(String community : split_that_works(test_shit, "|")){
+            myList.add(community);
+        }
+        return myList;
+    }
+
+    public int join_community(String username, String community_code) throws IOException{
+        return Integer.parseInt(send("join_community", Arrays.asList(username, community_code)));
+    }
+
+    //returns community code
+    public String create_community(String username, String community_name) throws IOException{
+        return send("create_community", Arrays.asList(username, community_name));
+    }
+
 
     //return 1 if push was successful
     /*
@@ -102,17 +131,18 @@ public class interactions {
         str_tasks.add(community_code);
         for(Task task : tasks){
             String temp_string = "";
-            temp_string += task.getName() + ':';
-            temp_string += task.getDestination() + ':';
-            temp_string += task.getStart().toString() + ':';
-            temp_string += task.getFinish().toString() + ':';
+            temp_string += task.getName() + '~';
+            temp_string += task.getDestination() + '~';
+            temp_string += task.getStart().toString() + '~';
+            temp_string += task.getFinish().toString() + '~';
             temp_string += String.valueOf(task.getMax_orders());
             for(String request : task.getRequests()){
-                temp_string += ':' + request;
+                temp_string += '~' + request;
             }
             str_tasks.add(temp_string);
         }
 
+        System.out.println(str_tasks);
         return Integer.parseInt(send("push_events", str_tasks));
     }
 
@@ -121,22 +151,30 @@ public class interactions {
     public ArrayList<Task> pull_events(String community_code) throws IOException, ParseException {
 
         String data = send("pull_events", Arrays.asList(community_code));
+        if(data == "0"){
+            System.out.println("FUCK SOMETHING IS OFF IN PULL EVENTS");
+        }
         ArrayList<Task> tasks = new ArrayList<>();
+        if(data.length() > 0) {
+            System.out.println("DATA: " + data);
+            for (String task : split_that_works(data, "|")) {
 
-        for(String task : data.split("|")){
+                List<String> task_list = split_that_works(task, "~");
 
-            List<String> task_list = Arrays.asList(task.split(":"));
+                ArrayList<String> requests = new ArrayList<>();
 
-            ArrayList<String> requests = new ArrayList<>();
+                for (int x = 5; x < task_list.size(); x++) {
+                    requests.add(task_list.get(x));
+                }
 
-            for(int x = 5; x < task_list.size(); x++){
-                requests.add(task_list.get(x));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date startDate = sdf.parse(task_list.get(2).substring(0, task_list.get(2).indexOf("EST") - 1));
+                Date endDate = sdf.parse(task_list.get(3));
+                Task temp_task = new Task(task_list.get(0), task_list.get(1), startDate, endDate, Integer.parseInt(task_list.get(4)), requests);
+                tasks.add(temp_task);
             }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date startDate = sdf.parse(task_list.get(2));
-            Date endDate = sdf.parse(task_list.get(3));
-            Task temp_task = new Task(task_list.get(0), task_list.get(1), startDate, endDate, Integer.parseInt(task_list.get(4)), requests);
-            tasks.add(temp_task);
+        } else{
+            System.out.println("NO TASKS AVAILABLE");
         }
         return tasks;
     }

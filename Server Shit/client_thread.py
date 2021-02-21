@@ -200,9 +200,10 @@ class client_thread():
             tasks_list = []
             for task in args[1:]:
                 task_list = task.split('~')
-                
                 #add time feature where task will delete itself after time is met
-                tasks_list.append(task_list)
+                if (len(task_list) - 5) - int(task_list[4]) < 0:
+                    print("HELLO")
+                    tasks_list.append(task_list)
 
             self.controller.communities[args[0]].update_events(tasks_list)
             print("Tasks:", tasks_list)
@@ -213,8 +214,6 @@ class client_thread():
     #returns string that will be processed client side
     #basically returns all events of a community
     def pull_events (self, args):
-        print(args)
-        print(self.controller.communities)
          #response to an event should be added as another parameter? to the list or file events are stored in
         if(args[0] in self.controller.communities):
             community_events = self.controller.communities[args[0]].tasks
