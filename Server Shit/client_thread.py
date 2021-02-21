@@ -144,9 +144,11 @@ class client_thread():
             user_pass = entries[0][:-1].split (" ")
             if user_pass[0] == user:
                 lines[i] = lines[i] + " " + code
-                user_text_edit = open ("user_info.txt", "w", encoding="latin-1") 
-                user_text_edit.write ("\n".join(lines))
-                user_text_edit.close()
+                user_text = open ("user_info.txt", "w", encoding="latin-1") 
+                comm_text = open ("user_info.txt", "a", encoding="latin-1")
+                comm_text.write ("\n" + code + " | " + name)
+                user_text.write ("\n".join(lines))
+                user_text.close()
         
         return code
 
