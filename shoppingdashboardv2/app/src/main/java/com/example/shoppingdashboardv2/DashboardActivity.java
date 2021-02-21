@@ -33,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // should be pulling data from server as mTasks, need to thread this
         interactions cur_interaction = ServerSingleton.get().getMinteracations();
+
         try {
             ServerSingleton.get().setmTasks( (ArrayList<Task>) cur_interaction.
                     pull_events(ServerSingleton.get().getmCommunityCode()));
