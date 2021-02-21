@@ -18,6 +18,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     private TextView retLoginTV;
     private EditText usernameET;
     private EditText passwordET;
+    private EditText commCodeET;
+    private EditText commNameET;
 
 
     @Override
@@ -29,6 +31,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         retLoginTV = findViewById(R.id.retLoginTV);
         usernameET = findViewById(R.id.usernameET);
         passwordET = findViewById(R.id.passwordET);
+        commCodeET = findViewById(R.id.codeET);
+        commNameET = findViewById(R.id.commNameET);
 
         createActBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +50,28 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(check == 1) {
                     ServerSingleton.get().setmUsername(newUsername);
 
-                    try {
-                        ServerSingleton.get().setmCommunityCode(cur_interactions.get_community
-                                (ServerSingleton.get().getmUsername()).get(0));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    String code = commCodeET.getText().toString();
+                    String commName = commNameET.getText().toString();
+
+                    if (code.length() == 0) {
+                        try {
+                            String newCommCode = cur_interactions.create_community(newUsername, commName);
+                            ServerSingleton.get().setmCommunityCode(newCommCode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else if (commName.length() == 0) {
+                        try {
+                            cur_interactions.join_community(newUsername, code);
+                            ServerSingleton.get().setmCommunityCode(cur_interactions.get_community(newUsername).get(0));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     }
+
+
 
                     Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                     startActivity(intent);

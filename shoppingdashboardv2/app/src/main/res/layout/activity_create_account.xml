@@ -57,7 +57,7 @@
         android:text="Create Account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordET" />
+        app:layout_constraintTop_toBottomOf="@+id/codeET" />
 
     <TextView
         android:id="@+id/retLoginTV"
@@ -71,5 +71,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/codeET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Community Code"
+        android:inputType="textPersonName"
+        android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commNameET" />
+
+    <EditText
+        android:id="@+id/commNameET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Community Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordET" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
