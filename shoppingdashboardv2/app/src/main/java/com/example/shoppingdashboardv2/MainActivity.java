@@ -33,14 +33,21 @@ Button SignUp_BT;
             @Override
             public void onClick(View v) {
                 String newUsername = usernameLogIn_et.getText().toString();
+                interactions cur_interactions = ServerSingleton.get().getMinteracations();
                 try {
-                    ServerSingleton.get().getMinteracations().check_user(newUsername,
+                    cur_interactions.check_user(newUsername,
                             LogInPassword_et.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+
                 ServerSingleton.get().setmUsername(newUsername);
+                try {
+                    ServerSingleton.get().setmCommunityCode(cur_interactions.get_community(ServerSingleton.get().getmUsername()).get(0));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                 startActivity(intent);
