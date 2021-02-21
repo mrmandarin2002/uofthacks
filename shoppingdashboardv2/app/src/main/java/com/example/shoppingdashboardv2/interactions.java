@@ -4,6 +4,7 @@ import com.example.shoppingdashboardv2.Task;
 
 import java.net.*;
 import java.io.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,6 +127,8 @@ public class interactions {
     //pushes event changes to the server
     public int push_events(String community_code, ArrayList<Task> tasks) throws IOException{
 
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         //this is fucking disgusting
         List<String> str_tasks = new ArrayList<>();
         str_tasks.add(community_code);
@@ -133,8 +136,8 @@ public class interactions {
             String temp_string = "";
             temp_string += task.getName() + '~';
             temp_string += task.getDestination() + '~';
-            temp_string += task.getStart().toString() + '~';
-            temp_string += task.getFinish().toString() + '~';
+            temp_string += sdf.format(task.getStart()) + '~';
+            temp_string += sdf.format(task.getFinish())+ '~';
             temp_string += String.valueOf(task.getMax_orders());
             for(String request : task.getRequests()){
                 temp_string += '~' + request;
@@ -168,7 +171,7 @@ public class interactions {
                 }
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date startDate = sdf.parse(task_list.get(2).substring(0, task_list.get(2).indexOf("EST") - 1));
+                Date startDate = sdf.parse(task_list.get(2));
                 Date endDate = sdf.parse(task_list.get(3));
                 Task temp_task = new Task(task_list.get(0), task_list.get(1), startDate, endDate, Integer.parseInt(task_list.get(4)), requests);
                 tasks.add(temp_task);
