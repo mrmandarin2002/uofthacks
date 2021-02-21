@@ -10,12 +10,14 @@
         android:id="@+id/task_nameTV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="name"
         android:textColor="@color/light_blue_A400"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toEndOf="@+id/iconTV2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,44 +25,46 @@
         android:id="@+id/task_locationTV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="location"
+        android:textColor="@color/teal_700"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/iconTV2"
-        app:layout_constraintTop_toBottomOf="@+id/task_nameTV2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconTV2" />
 
     <TextView
         android:id="@+id/task_starttime_TV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="start time"
+        android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_locationTV2" />
+        app:layout_constraintTop_toBottomOf="@+id/task_numpeople_TV2" />
 
     <TextView
         android:id="@+id/task_endtime_TV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:text="end time"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/task_starttime_TV2"
-        app:layout_constraintTop_toBottomOf="@+id/task_locationTV2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_starttime_TV2" />
 
     <TextView
         android:id="@+id/task_numpeople_TV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:text="number of people"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_starttime_TV2" />
+        android:textColor="@color/material_on_background_emphasis_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTV" />
 
     <TextView
         android:id="@+id/iconTV2"
@@ -79,12 +83,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:text="status"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/task_numpeople_TV2"
-        app:layout_constraintTop_toBottomOf="@+id/task_starttime_TV2" />
+        app:layout_constraintStart_toEndOf="@+id/task_locationTV2"
+        app:layout_constraintTop_toBottomOf="@+id/iconTV2" />
 
     <TextView
         android:id="@+id/messageTV2"
@@ -92,20 +98,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="messages"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_numpeople_TV2" />
+        app:layout_constraintTop_toBottomOf="@+id/task_endtime_TV2" />
 
     <EditText
         android:id="@+id/addressET2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Enter your address"
         android:inputType="textPostalAddress"
         android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameET2" />
 
@@ -113,12 +120,12 @@
         android:id="@+id/nameET2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Enter your name"
         android:inputType="textPersonName"
         android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageTV2" />
 
@@ -126,12 +133,12 @@
         android:id="@+id/costET2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Enter cost estimate ($)"
         android:inputType="number"
         android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groceryListET2" />
 
@@ -139,12 +146,12 @@
         android:id="@+id/groceryListET2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Enter all items"
         android:inputType="textPersonName"
         android:textColor="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressET2" />
 
@@ -152,25 +159,23 @@
         android:id="@+id/submitReqBTN2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="#009688"
-        android:backgroundTint="#009688"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#03A9F4"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/costET2" />
 
     <Button
         android:id="@+id/cancelBTN2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:background="#009688"
-        android:backgroundTint="#009688"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#03A9F4"
         android:text="Cancel"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/costET2" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
