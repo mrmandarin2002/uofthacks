@@ -94,6 +94,7 @@ public class interactions {
     [4] = max orders
     [everything after] = requests
      */
+    //pushes event changes to the server
     public int push_events(String community_code, ArrayList<Task> tasks) throws IOException{
 
         //this is fucking disgusting
@@ -116,7 +117,8 @@ public class interactions {
     }
 
     //it's legit not possible to make more disgusting code than this
-    public List<Task> pull_events(String community_code) throws IOException, ParseException {
+    //returns a list of events of a certain community
+    public ArrayList<Task> pull_events(String community_code) throws IOException, ParseException {
 
         String data = send("pull_events", Arrays.asList(community_code));
         ArrayList<Task> tasks = new ArrayList<>();

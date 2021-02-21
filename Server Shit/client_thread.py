@@ -25,6 +25,9 @@ class client_thread():
             "sign_up" : self.sign_up,
             "get_community" : self.get_community,
             "create_community" : self.create_community,
+            "join_community" : self.join_community,
+            "push_events" : self.push_events,
+            "pull_events" : self.pull_events
         
             #add all the methods within this class
 
@@ -69,7 +72,7 @@ class client_thread():
     def check_user(self, args):
         #check if the user and pass are viable; return true if they are
         for key in self.controller.users:
-            if key == args[0] and self.controller.users[key] == args[1]:
+            if key == args[0] and self.controller.users[key][0] == args[1]:
                 return 1
         
         return 0
@@ -78,12 +81,14 @@ class client_thread():
         #returns 1 if user is taken, 2 if pass is taken
         #returns 0 if sign up is successful
         for key in self.controller.users:
-            if key == args[0] or self.controller.users[key] == args[1]: 
+            if key == args[0] or self.controller.users[key][0] == args[1]: 
                 return 0
 
-            self.controller.users[args[0]] = [args[1], []]
-            self.controller.user_text.write (args[0] + " " + args[1] + " | ")
-            return 1
+        self.controller.users[args[0]] = [args[1], []]
+        user_text = open ("user_info.txt", "a", encoding="latin-1")
+        user_text.write ('\n' + args[0] + " " + args[1] + " | ")
+        user_text.close()
+        return 1
     
     def join_community (self, args):
         #args [user, code]; both user and code are strings
@@ -99,7 +104,9 @@ class client_thread():
         else: 
             self.controller.users[user][1].append (code)
             
-            lines = self.controller.f.readlines()
+            f = open ("user_info.txt", "r", encoding="latin-1")
+            lines = f.read().split('\n')
+            f.close()
             
             for i in range (len (lines)):
                 entries = lines[i].split ("|")
@@ -107,12 +114,14 @@ class client_thread():
                 user_pass = entries[0][:-1].split (" ")
                 if user_pass[0] == user:
                     lines[i] = lines[i] + " " + code
-                    self.controller.user_text_edit.write (lines)
+                    user_text_edit = open ("user_info.txt", "w", encoding="latin-1") 
+                    user_text_edit.write ("\n".join(lines))
+                    user_text_edit.close()
                     return 1 
             return 0
 
     def get_community (self, args):
-        return self.controller.users[args][1]
+        return "|".join(self.controller.users[args[0]][1])
 
     def create_community (self, args):
         #create community and write it to the file with username who created it underneath
@@ -127,14 +136,17 @@ class client_thread():
         self.controller.users[user][1].append (code)
 
         #write it to the file
-        lines = self.controller.f.readlines()            
+        f = open ("user_info.txt", "r", encoding="latin-1")
+        lines = f.read().split('\n')            
         for i in range (len (lines)):
             entries = lines[i].split ("|")
 
             user_pass = entries[0][:-1].split (" ")
             if user_pass[0] == user:
                 lines[i] = lines[i] + " " + code
-                self.controller.user_text_edit.write (lines)
+                user_text_edit = open ("user_info.txt", "w", encoding="latin-1") 
+                user_text_edit.write ("\n".join(lines))
+                user_text_edit.close()
         
         return code
 
@@ -155,28 +167,37 @@ class client_thread():
     '''
     #pushes changes to the events
     def push_events (self, args):
-        #we receive events and we update dicts
-        tasks_list = []
-        for task in args[1:]:
-            task_list = task.split(':')
-            #add time feature where task will delete itself after time is met
-            if (len(task_list) - 5) - int(task_list[4]) > 0:
-                tasks_list.append(task_list)
+        if args[0] in self.controller.communities:
+            #we receive events and we update dicts
+            tasks_list = []
+            for task in args[1:]:
+                task_list = task.split(':')
+                #add time feature where task will delete itself after time is met
+                if (len(task_list) - 5) - int(task_list[4]) > 0:
+                    tasks_list.append(task_list)
 
-        self.controller.communities[args[0]].update_events(tasks_list)
-        return 1
+            self.controller.communities[args[0]].update_events(tasks_list)
+            print("Tasks:", tasks_list)
+            return 1
+        else:
+            return 0
 
     #returns string that will be processed client side
     #basically returns all events of a community
     def pull_events (self, args):
+        print(args)
          #response to an event should be added as another parameter? to the list or file events are stored in
-        community_events = self.controller.communities[args[0]].events
-        temp_string = ""
-        for cnt, event in enumerate(community_events):
-            temp_string += ":".join(event)
-            if cnt < len(community_events) - 1:
-                temp_string += '|'
-        return temp_string 
+        if(args[0] in self.controller.communities):
+            community_events = self.controller.communities[args[0]].events
+            temp_string = ""
+            for cnt, event in enumerate(community_events):
+                temp_string += ":".join(event)
+                if cnt < len(community_events) - 1:
+                    temp_string += '|'
+            print("STRING TO BE SENT:", temp_string)
+            return temp_string 
+        else:
+            return 0
 
 
 

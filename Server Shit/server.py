@@ -42,22 +42,25 @@ class server():
         self.users = {}
         self.communities = {}
 
-        self.user_text = open ("user_info.txt", "a", encoding="latin-1")
-        self.user_text_edit = open ("user_info.txt", "w", encoding="latin-1")
-        self.comm_text = open ("community_info.txt", "a", encoding="latin-1")
+        #self.user_text = open ("user_info.txt", "a", encoding="latin-1")
+        #self.user_text_edit = open ("user_info.txt", "w", encoding="latin-1") 
+        #self.comm_text = open ("community_info.txt", "a", encoding="latin-1")
 
         self.f = open ("user_info.txt", "r", encoding="latin-1")
-        lines = self.f.readlines()
+        lines = self.f.read()
 
-        for line in lines:
+        for line in lines.split('\n'):
+            print("LINE: ", line)
             entries = line.split ("|")
 
             user_pass = entries[0][:-1].split (" ")
             user = user_pass [0]
             pwrd = user_pass [1]
-            code = entries[1][1:-1].split (" ")
+            code = entries[1][1:].split (" ")
 
-            self.users [user] = [pwrd, [code]]
+            self.users [user] = [pwrd, code]
+
+        self.f.close()
 
         g = open ("community_info.txt", "r", encoding="latin-1")
         lines = g.readlines()
@@ -68,6 +71,11 @@ class server():
             code = entries[0].replace (" ", "")
             name = entries[1].replace (" ", "")
             self.communities [code] = community(name, code)
+
+        g.close()
+
+        print("USERS", self.users)
+        print("COMMUNITIES", self.communities)
 
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #socket
