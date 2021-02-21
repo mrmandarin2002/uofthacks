@@ -28,6 +28,8 @@ public class DashboardActivity extends AppCompatActivity {
     // want to populate this from the database
 
     private FloatingActionButton AddTask_flabt;
+    private FloatingActionButton refreshFAB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,11 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
 
+
          */
+
+        content();
+
         Log.d(TAG, "onCreate: started");
 
         mTasks = ServerSingleton.get().getmTasks();
@@ -82,7 +88,13 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        content();
+        refreshFAB = findViewById(R.id.refreshFAB);
+        refreshFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                content();
+            }
+        });
 
 
 
@@ -99,25 +111,9 @@ public class DashboardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         createRecyclerView();
-        refresh(1000);
+        Toast.makeText(DashboardActivity.this, "REFRESHED", Toast.LENGTH_SHORT).show();
     }
-
-    private void refresh(int milliseconds){
-
-        final Handler handler = new Handler();
-
-        final Runnable runnable = new Runnable(){
-
-
-            @Override
-            public void run() {
-                Toast.makeText(DashboardActivity.this, "REFRESHED", Toast.LENGTH_SHORT).show();
-                // should be pulling data from server as mTasks, need to thread this
-                content();
-            }
-        };
-
-    }
+    
 
     private void createRecyclerView(){
         Log.d(TAG, "CreateRecyclerView");
