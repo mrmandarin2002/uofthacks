@@ -49,7 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String locationText = "Destination: " + mTasks.get(position).getDestination();
         String startText = "Start time: " + dateFormat.format(mTasks.get(position).getStart());
         String endText = "End time: " + dateFormat.format(mTasks.get(position).getFinish());
-        String numpeopleText = "Max Count: " + mTasks.get(position).getMax_orders();
+        String numpeopleText = "Current availability: " + mTasks.get(position).getRequests().size() + "/"
+                + mTasks.get(position).getMax_orders();
         String iconText = Character.toString(mTasks.get(position).getDestination().charAt(0));
 
         holder.task_nameTV.setText(nameText);

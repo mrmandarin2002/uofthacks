@@ -48,6 +48,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     {
 
                         String name = nameField.getText().toString();
+                        name = ServerSingleton.get().getmUsername();
                         // replace this with getting the username from the server
 
                         String dest = destField.getText().toString();

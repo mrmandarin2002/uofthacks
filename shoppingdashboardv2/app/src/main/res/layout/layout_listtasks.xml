@@ -10,9 +10,11 @@
         android:id="@+id/task_nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/iconTV"
         android:layout_marginStart="8dp"
-        android:text="name" />
+        android:layout_toEndOf="@+id/iconTV"
+        android:text="name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/task_locationTV"
@@ -20,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@+id/task_nameTV"
-        android:text="location" />
+        android:text="location"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/task_starttime_TV"
@@ -35,10 +38,9 @@
         android:id="@+id/task_endtime_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iconTV"
-        android:layout_marginStart="8dp"
+        android:layout_below="@+id/task_starttime_TV"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/task_starttime_TV"
+        android:layout_marginStart="8dp"
         android:text="end time" />
 
     <TextView

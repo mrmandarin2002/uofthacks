@@ -13,7 +13,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="name"
+        android:textColor="@color/light_blue_A400"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iconTV2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +69,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="icon text"
+        android:textColor="@color/light_blue_900"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -102,6 +105,7 @@
         android:ems="10"
         android:hint="Enter your address"
         android:inputType="textPostalAddress"
+        android:textColor="@color/teal_700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameET2" />
 
@@ -114,6 +118,7 @@
         android:ems="10"
         android:hint="Enter your name"
         android:inputType="textPersonName"
+        android:textColor="@color/teal_700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageTV2" />
 
@@ -126,6 +131,7 @@
         android:ems="10"
         android:hint="Enter cost estimate ($)"
         android:inputType="number"
+        android:textColor="@color/teal_700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groceryListET2" />
 
@@ -138,6 +144,7 @@
         android:ems="10"
         android:hint="Enter all items"
         android:inputType="textPersonName"
+        android:textColor="@color/teal_700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressET2" />
 
@@ -147,6 +154,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
+        android:background="#009688"
+        android:backgroundTint="#009688"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/costET2" />
@@ -157,7 +166,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:background="#009688"
+        android:backgroundTint="#009688"
         android:text="Cancel"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/costET2" />
 
