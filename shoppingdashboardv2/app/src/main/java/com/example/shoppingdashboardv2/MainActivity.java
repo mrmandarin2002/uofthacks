@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,26 +34,27 @@ Button SignUp_BT;
         Signin_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newUsername = usernameLogIn_et.getText().toString();
                 interactions cur_interactions = ServerSingleton.get().getMinteracations();
+                String newUsername = usernameLogIn_et.getText().toString();
+                int check = 0;
                 try {
-                    cur_interactions.check_user(newUsername,
+                    check = cur_interactions.check_user(newUsername,
                             LogInPassword_et.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+                if(check == 1) {
+                    ServerSingleton.get().setmUsername(newUsername);
+                    try {
+                        ServerSingleton.get().setmCommunityCode(cur_interactions.get_community(ServerSingleton.get().getmUsername()).get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                ServerSingleton.get().setmUsername(newUsername);
-                try {
-                    ServerSingleton.get().setmCommunityCode(cur_interactions.get_community(ServerSingleton.get().getmUsername()).get(0));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    Intent intent = new Intent(v.getContext(), DashboardActivity.class);
+                    startActivity(intent);
                 }
-
-                Intent intent = new Intent(v.getContext(), DashboardActivity.class);
-                startActivity(intent);
-
             }
         });
 

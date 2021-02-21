@@ -1,5 +1,7 @@
 package com.example.shoppingdashboardv2;
 
+import android.os.StrictMode;
+
 import com.example.shoppingdashboardv2.Task;
 
 import java.net.*;
@@ -14,7 +16,8 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class interactions {
+
+public class interactions{
 
     int PORT = 5055;
     String FORMAT = "utf-8";
@@ -27,6 +30,14 @@ public class interactions {
 
 
     public interactions() throws IOException {
+
+        /////////////////////////////////
+        //CODE FROM GOD HIMSELF
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        ///////////////////////////////////
+
+        System.out.println("YEEEE");
         this.tcp_socket = new Socket(server_ip, PORT);
         this.out = new PrintWriter(tcp_socket.getOutputStream(), true);
         this.in = new BufferedReader( new InputStreamReader( tcp_socket.getInputStream() ) );
