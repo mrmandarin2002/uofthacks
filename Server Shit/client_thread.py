@@ -7,6 +7,31 @@ FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 HEADER = 16
 
+class community():
+
+    #returns True if successfully added
+    #returns False is user already in community
+    def add_user(self, username):
+        if username not in self.users:
+            self.users.append(username)
+            return True
+        else:
+            return False
+
+    def remove_user(self, username):
+        self.users.remove(username)
+
+    def update_events(self, task_list):
+        self.tasks.clear()
+        self.tasks = task_list.copy()
+
+    def __init__(self, name, code):
+        self.name = name
+        self.code = code
+        self.users = []
+        self.tasks = []
+
+
 # function to get the current time
 def get_time():
     return str(datetime.now()).split()[1].split(".")[0]+" "
@@ -134,6 +159,7 @@ class client_thread():
         code = name [:len (name)//2] + str (random.randint(100, 999))
 
         self.controller.users[user][1].append (code)
+        self.controller.communities[code] = self.community(name, code)
 
         #write it to the file
         f = open ("user_info.txt", "r", encoding="latin-1")
@@ -145,7 +171,7 @@ class client_thread():
             if user_pass[0] == user:
                 lines[i] = lines[i] + " " + code
                 user_text = open ("user_info.txt", "w", encoding="latin-1") 
-                comm_text = open ("user_info.txt", "a", encoding="latin-1")
+                comm_text = open ("community_info.txt", "a", encoding="latin-1")
                 comm_text.write ("\n" + code + " | " + name)
                 user_text.write ("\n".join(lines))
                 user_text.close()
@@ -173,10 +199,10 @@ class client_thread():
             #we receive events and we update dicts
             tasks_list = []
             for task in args[1:]:
-                task_list = task.split(':')
+                task_list = task.split('~')
+                
                 #add time feature where task will delete itself after time is met
-                if (len(task_list) - 5) - int(task_list[4]) > 0:
-                    tasks_list.append(task_list)
+                tasks_list.append(task_list)
 
             self.controller.communities[args[0]].update_events(tasks_list)
             print("Tasks:", tasks_list)
@@ -188,12 +214,13 @@ class client_thread():
     #basically returns all events of a community
     def pull_events (self, args):
         print(args)
+        print(self.controller.communities)
          #response to an event should be added as another parameter? to the list or file events are stored in
         if(args[0] in self.controller.communities):
-            community_events = self.controller.communities[args[0]].events
+            community_events = self.controller.communities[args[0]].tasks
             temp_string = ""
             for cnt, event in enumerate(community_events):
-                temp_string += ":".join(event)
+                temp_string += "~".join(event)
                 if cnt < len(community_events) - 1:
                     temp_string += '|'
             print("STRING TO BE SENT:", temp_string)
