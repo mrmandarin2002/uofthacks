@@ -7,74 +7,90 @@
     tools:context=".AddTaskActivity">
 
     <TextView
+        android:id="@+id/addTaskTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add Task"
+        android:textColor="@color/light_blue_900"
+        android:textSize="36sp"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/dateTimeReturn_txtv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Return Date Tiime (yyyy-MM-dd hh:mm), 24-hour clock"
-        app:layout_constraintBottom_toTopOf="@+id/returnDateTime_et"
+        android:layout_marginTop="16dp"
+        android:text="Return Date Time (yyyy-MM-dd hh:mm), 24-hour clock"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateTime_et" />
 
     <EditText
         android:id="@+id/name_et"
         android:layout_width="283dp"
         android:layout_height="46dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/destination_et"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347" />
+        app:layout_constraintTop_toBottomOf="@+id/addTaskTitleTV" />
 
     <EditText
         android:id="@+id/destination_et"
         android:layout_width="281dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Destination"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/dateTimeStart_txtv"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_et" />
 
     <EditText
         android:id="@+id/maxOrders_et"
         android:layout_width="288dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Maximum Number of Orders"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/createTask_bt"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/returnDateTime_et" />
 
     <Button
         android:id="@+id/createTask_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#03A9F4"
         android:text="Post Task To Dashboard"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_bt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxOrders_et" />
 
     <Button
         android:id="@+id/cancel_bt"
         android:layout_width="284dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#03A9F4"
         android:text="Cancel and Return to Dashboard"
         app:iconTint="#682F2F"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,34 +101,37 @@
         android:id="@+id/dateTimeStart_txtv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Start Date Tiime (yyyy-MM-dd hh:mm), 24-hour clock"
-        app:layout_constraintBottom_toTopOf="@+id/startDateTime_et"
+        android:layout_marginTop="16dp"
+        android:text="Start Date Time (yyyy-MM-dd hh:mm), 24-hour clock"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destination_et" />
 
     <EditText
         android:id="@+id/startDateTime_et"
         android:layout_width="284dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Date and Time of Shopping "
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/dateTimeReturn_txtv"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTimeStart_txtv" />
 
     <EditText
         android:id="@+id/returnDateTime_et"
         android:layout_width="285dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Date and Time of Return"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/maxOrders_et"
+        android:textColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTimeReturn_txtv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

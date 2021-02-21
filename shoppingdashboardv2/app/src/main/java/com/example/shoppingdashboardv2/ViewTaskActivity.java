@@ -78,6 +78,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                 } else{
 
                     // replace nameET2 with getting the username from the server
+                    // name = ServerSingleton.get().getmUsername();
                     String newMessage = "Hi my name is: " + nameET2.getText().toString() + ". I am looking for: "
                             + groceryListET2.getText().toString() + " to be delivered to: " +
                             addressET2.getText().toString() + ". The approximate cost is: " +
