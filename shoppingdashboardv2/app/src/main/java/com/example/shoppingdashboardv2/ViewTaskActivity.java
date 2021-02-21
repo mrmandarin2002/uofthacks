@@ -90,6 +90,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                     Intent intent = new Intent(v.getContext(), DashboardActivity.class);
                     intent.putExtra("newMessage", newMessage);
                     intent.putExtra("name", curTask.getName());
+                    intent.putExtra("location", curTask.getDestination());
                     startActivity(intent);
                 }
 

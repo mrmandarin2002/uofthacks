@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,11 +30,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     private FloatingActionButton AddTask_flabt;
     private FloatingActionButton refreshFAB;
+    private TextView dashboardTitleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        dashboardTitleTV = findViewById(R.id.dashboardTitleTV);
+        String cur_text = dashboardTitleTV.getText().toString();
+        cur_text += " | " + ServerSingleton.get().getmCommunityCode();
+        dashboardTitleTV.setText(cur_text);
 
         /*
         // should be pulling data from server as mTasks, need to thread this
@@ -60,8 +67,9 @@ public class DashboardActivity extends AppCompatActivity {
         if (getIntent().hasExtra("newMessage")) {
             String newMessage = getIntent().getStringExtra("newMessage");
             String name = getIntent().getStringExtra("name");
+            String destination = getIntent().getStringExtra("location");
             for (int i = 0; i < mTasks.size(); i++) {
-                if (mTasks.get(i).getName().equals(name)) {
+                if (mTasks.get(i).getName().equals(name) && mTasks.get(i).getDestination().equals(destination)) {
                     ArrayList<String> updatedRequests = mTasks.get(i).getRequests();
                     updatedRequests.add(newMessage);
                     mTasks.get(i).setRequests(updatedRequests);
